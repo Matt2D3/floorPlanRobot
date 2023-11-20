@@ -95,4 +95,4 @@ def convertGcode(inputFile,compress):
     
     return(output2)
 if __name__ == "__main__":
-    print("final list: ",convertGcode("W COOKIE CUTTER - Elise Kennedy 6-11-14.gcode",True))
+    print("final list: ",convertGcode("file.gcode",True))
