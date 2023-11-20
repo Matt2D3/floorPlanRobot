@@ -3,7 +3,7 @@ import turtle
 import math
 import time
 import gcodeParser
-inst = gcodeParser.convertGcode("hylandz.gcode", False)
+inst = gcodeParser.convertGcode("file.gcode", False)
 print("path: ",inst)
 skk = turtle.Turtle()
 skk.left(90)
