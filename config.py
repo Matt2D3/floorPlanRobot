@@ -1,0 +1,1 @@
+stepsPerDegree = 6.65

@@ -1,0 +1,180 @@
+from machine import Pin, I2C, PWM
+import time
+import ssd1306
+import buzzer
+import stepperDriver as st
+servo = PWM(Pin(25))
+# using default address 0x3C
+startSwitch = Pin(26, Pin.IN, Pin.PULL_UP)
+i2c = I2C(sda=Pin(18), scl=Pin(19))
+display = ssd1306.SSD1306_I2C(128, 64, i2c)
+
+#test sellection
+screenT = False
+buzzerT = False
+switchT = False
+stepperT = False
+markerT = True
+
+if screenT:
+    print("screen tests")
+    print("Hello, World!")
+    display.text('Hello, World!', 0, 0, 1)
+    display.show()
+    input("")
+    print("all white")
+    display.fill(1)
+    display.show()
+    input("")
+    print("all black")
+    display.fill(0)
+    display.show()
+    input("")
+    print("micropython logo")
+    display.fill(0)
+    display.fill_rect(0, 0, 32, 32, 1)
+    display.fill_rect(2, 2, 28, 28, 0)
+    display.vline(9, 8, 22, 1)
+    display.vline(16, 2, 22, 1)
+    display.vline(23, 8, 22, 1)
+    display.fill_rect(26, 24, 2, 4, 1)
+    display.text('MicroPython', 40, 0, 1)
+    display.text('SSD1306', 40, 12, 1)
+    display.text('OLED 128x64', 40, 24, 1)
+    display.show()
+    input("")
+if buzzerT:
+    print("buzzer test")
+    display.fill(0)
+    display.text('buzzer test', 0, 0, 1)
+    display.text('startup', 0, 10, 1)
+    display.show()
+    buzzer.startup()
+
+    time.sleep(0.5)
+    display.fill(0)
+    display.text('buzzer test', 0, 0, 1)
+    display.text('shutdown', 0, 10, 1)
+    display.show()
+    buzzer.shutdown()
+
+    time.sleep(0.5)
+    display.fill(0)
+    display.text('buzzer test', 0, 0, 1)
+    display.text('start', 0, 10, 1)
+    display.show()
+    buzzer.start()
+
+    time.sleep(0.5)
+    display.fill(0)
+    display.text('buzzer test', 0, 0, 1)
+    display.text('end', 0, 10, 1)
+    display.show()
+    buzzer.end()
+
+    time.sleep(0.5)
+    display.fill(0)
+    display.text('buzzer test', 0, 0, 1)
+    display.text('debugMode', 0, 10, 1)
+    display.show()
+    buzzer.debugMode()
+
+    input("")
+if switchT:
+    display.fill(0)
+    display.text('switch test', 0, 0, 1)
+    display.show()
+    print("switch test")
+    while(startSwitch.value()==1):
+        time.sleep(0.1)
+    print("switch pressed")
+    display.text('switch pressed',0,10,1)
+    display.show()
+    while(startSwitch.value()==0):
+        time.sleep(0.1)
+    display.fill(0)
+    display.text('switch test', 0, 0, 1)
+    display.text('switch unpressed',0,10,1)
+    display.show()
+    print("switch unpressed")
+    time.sleep(1)
+if stepperT:
+    display.fill(0)
+    display.text('stepper test', 0, 0, 1)
+    display.show()
+    input("")
+    print("stepper test")
+    print("init")
+    display.fill(0)
+    display.text('stepper test', 0, 0, 1)
+    display.text('init', 0, 10, 1)
+    display.show()
+    input("")
+    
+    st.init(12, 13, 27, 14, 22)
+    print("stepper test")
+    print("init")
+    display.fill(0)
+    display.text('stepper test', 0, 0, 1)
+    display.text('init', 0, 10, 1)
+    display.show()
+    st.ennableMotors(1)
+    
+    input("")
+    print("steppers forward")
+    display.fill(0)
+    display.text('stepper test', 0, 0, 1)
+    display.text('s forward', 0, 10, 1)
+    display.show()
+    st.setDir(1,1)
+    st.stepSteps(500,1,0.25,500,1)
+
+    input("")
+    print("steppers backwards")
+    display.fill(0)
+    display.text('stepper test', 0, 0, 1)
+    display.text('s backwards', 0, 10, 1)
+    display.show()
+    st.setDir(0,0)
+    st.stepSteps(500,1,0.25,500,1)
+
+    input("")
+    print("steppers left")
+    display.fill(0)
+    display.text('stepper test', 0, 0, 1)
+    display.text('s left', 0, 10, 1)
+    display.show()
+    st.setDir(1,0)
+    st.stepSteps(500,1,0.25,500,1)
+
+    input("")
+    print("steppers right")
+    display.fill(0)
+    display.text('stepper test', 0, 0, 1)
+    display.text('s right', 0, 10, 1)
+    display.show()
+    st.setDir(0,1)
+    st.stepSteps(500,1,0.25,500,1)
+    time.sleep(1)
+    st.ennableMotors(0)
+
+if markerT:
+    servo.freq(500)
+    for i in range(20):
+        servo.duty(round(2000/2))
+        time.sleep(0.5)
+        servo.duty(round(1900/2))
+        time.sleep(0.5)
+    servo.deinit()
+print("end of test")
+display.fill(0)
+display.text('end of test',0,0,1)
+display.show()
+if buzzerT:
+    buzzer.beep(1320)
+    buzzer.beep(880)
+    buzzer.beep(440)
+time.sleep(1)
+
+display.fill(0)
+display.show()
