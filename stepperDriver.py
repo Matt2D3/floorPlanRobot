@@ -9,7 +9,7 @@ Created on Mon Oct 16 09:24:09 2023
 print("stepper driver v2")
 import utime
 def smsSleep(slpTime):
-    utime.sleep_us(int(slpTime*100000))
+    utime.sleep_us(int(slpTime*1000000))
         
 def init(step1d, dir1d, step2d, dir2d, enabled):
     try:
