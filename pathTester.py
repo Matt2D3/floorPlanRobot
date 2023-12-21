@@ -3,7 +3,13 @@ import turtle
 import math
 import time
 import gcodeParser
-inst = gcodeParser.convertGcode("file.gcode", False)
+
+#replace inst with a path to test that path
+#path can be genorated by gcodeParser.py or gotten from paths.txt
+inst = [[-29.261000000000003, 99.021, 0], [99.021, 99.261, 1], [99.261, -99.021, 1], [-53.104, -99.261, 1], [-53.104, -99.739, 1], [99.021, -99.739, 1], [99.739, 99.021, 1], [-29.021000000000004, 99.739, 1], [-99.021, 99.739, 1], [-99.739, 9.979, 1], [-99.739, -99.021, 1], [-93.135, -99.739, 1], [-93.135, -99.261, 1], [-99.021, -99.261, 1], [-99.261, 9.021, 1], [-83.488, 9.261, 1], [-83.488, 9.739, 1], [-99.021, 9.739, 1], [-99.261, 99.021, 1], [-29.978999999999996, 99.261, 1], [-29.738999999999997, 9.979, 1], [-37.966, 9.739, 1], [-37.966, 9.261, 1], [-29.978999999999996, 9.261, 1], [-29.261000000000003, 98.571, 1], [-26.347, 99.285, 1]]
+
+#inst = gcodeParser.convertGcode("example.gcode",True) #uncomment to parse and test a gcode file directly
+
 print("path: ",inst)
 skk = turtle.Turtle()
 skk.left(90)

@@ -5,6 +5,12 @@ Created on Fri May  5 13:55:29 2023
 
 @author: matt2d2
 """
+#replace file.gcode with the gcode file you wish to convert
+file = "example.gcode"
+#set to False to dissable compression (not recomended)
+compress = False
+#compression threshold, any points closer together than this distance will be removed
+compressionThreshold = 3
 
 def cordAverager(cordList):
     isolatedCord = cordList
@@ -64,7 +70,7 @@ def convertGcode(inputFile,compress):
                     print("check val: ",check)
                     if check >= 2:
                         
-                        if abs(x-prevCord[0]) + abs(y-prevCord[1])>=3 or not compress:
+                        if abs(x-prevCord[0]) + abs(y-prevCord[1])>=compressionThreshold or not compress:
                             #print("pcl: ",pcl,"average: ",cordAverager(pcl) )
                             try:
                                 output.append(cordAverager(pcl).append(penup))
@@ -84,15 +90,16 @@ def convertGcode(inputFile,compress):
     done = True
     for i in output:
         if str(i) == "None":
-            i = [0,0,0]
+            print("got none point")
         else:
             firstNonError = True
         if firstNonError and done:
             done = False
             i[2]=0
-        
-        output2.append(i)
+        if str(i)!="None":
+            output2.append(i)
     
     return(output2)
-if __name__ == "__main__":
-    print("final list: ",convertGcode("file.gcode",True))
+if __name__ == "__main__": 
+
+    print("\n\nfinal path: ",convertGcode(file,compress))
